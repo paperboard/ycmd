@@ -66,11 +66,7 @@ class GoCompleter( language_server_completer.LanguageServerCompleter ):
 
 
   def GetCommandLine( self ):
-    cmdline = [ self._gopls_path ] + self._user_supplied_gopls_args + [
-                '-logfile',
-                self._stderr_file ]
-    if utils.LOGGER.isEnabledFor( logging.DEBUG ):
-      cmdline.append( '-rpc.trace' )
+    cmdline = [ self._gopls_path ] + self._user_supplied_gopls_args
     return cmdline
 
 
