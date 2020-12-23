@@ -75,10 +75,9 @@ class GoCompleter( language_server_completer.LanguageServerCompleter ):
 
 
   def GetDoc( self, request_data ):
-    assert self._settings[ 'ls' ][ 'hoverKind' ] == 'Structured'
+    assert self._settings[ 'ls' ][ 'hoverKind' ] == 'FullDocumentation'
     try:
-      result = json.loads( self.GetHoverResponse( request_data )[ 'value' ] )
-      docs = result[ 'signature' ] + '\n' + result[ 'fullDocumentation' ]
+      docs = self.GetHoverResponse( request_data )[ 'value' ]
       return responses.BuildDetailedInfoResponse( docs.strip() )
     except language_server_completer.NoHoverInfoException:
       raise RuntimeError( 'No documentation available.' )
@@ -94,7 +93,7 @@ class GoCompleter( language_server_completer.LanguageServerCompleter ):
 
 
   def DefaultSettings( self, request_data ):
-    return { 'hoverKind': 'Structured' }
+    return { 'hoverKind': 'FullDocumentation' }
 
 
   def ExtraCapabilities( self ):
